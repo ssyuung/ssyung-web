@@ -1,1 +1,765 @@
-# ssyung.com
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>마디 MADI</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="마디마다, 함께. 학생의 지원 필요부터 인력 배정, 변경과 확인까지 마디가 하나로 연결합니다.">
+<meta property="og:title" content="마디 · 마디마다, 함께.">
+<meta property="og:description" content="필요한 지원이, 필요한 순간에 닿도록.">
+<meta property="og:image" content="images/overview-desktop.webp">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script>
+document.documentElement.classList.add("js");
+// 새로고침하면 항상 맨 위에서 시작 (브라우저가 이전 스크롤 위치를 되살리지 않게)
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+if (!location.hash) addEventListener("load", () => scrollTo(0, 0));
+</script>
+<style>
+/* Calm Editorial: 아이보리 바탕, 브라운 글자, 그린은 해결·디테일·CTA에만. 섹션은 배경색과 여백으로 나눈다 */
+:root {
+  --ivory: #FAF9F6;      /* Background Primary */
+  --paper: #FFFFFF;      /* 캡처 틀 */
+  --sand: #F2EFE9;       /* Background Secondary */
+  --ink: #302F2C;        /* Text Primary */
+  --brown: #49372F;      /* MADI Brown */
+  --muted: #817B73;      /* Text Secondary */
+  --line: #DDD9D1;       /* Border Default */
+  --green: #286B50;      /* MADI Green */
+  --green-ink: #286B50;
+  --green-light: #A8D5B8;
+  --on-green: #FAF9F6;
+  --error: #C46F65;
+  --problem: #F0EEE8;    /* Warm Gray, 01 문제 영역 */
+  --shadow: 0 1px 2px rgba(73, 55, 47, 0.06), 0 24px 48px -28px rgba(73, 55, 47, 0.28);
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --max: 1280px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ivory: #171513; --paper: #1E1B19; --sand: #221F1C; --ink: #F1ECE6; --brown: #E6D9CF; --muted: #ABA29B;
+    --line: #34302C; --green: #286B50; --green-ink: #8CC7A3; --green-light: #A8D5B8; --on-green: #FAF9F6; --error: #D98A81; --problem: #201D1B;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 24px 48px -28px rgba(0, 0, 0, 0.7); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ivory: #171513; --paper: #1E1B19; --sand: #221F1C; --ink: #F1ECE6; --brown: #E6D9CF; --muted: #ABA29B;
+  --line: #34302C; --green: #286B50; --green-ink: #8CC7A3; --green-light: #A8D5B8; --on-green: #FAF9F6; --error: #D98A81; --problem: #201D1B;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 24px 48px -28px rgba(0, 0, 0, 0.7); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ivory); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.7; letter-spacing: -0.012em; word-break: keep-all; -webkit-font-smoothing: antialiased; }
+main { overflow-x: clip; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { margin: 0; color: var(--brown); text-wrap: pretty; letter-spacing: -0.035em; line-height: 1.22; font-weight: 800; }
+p { margin: 0; }
+.wrap { max-width: var(--max); margin: 0 auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+
+/* 풀페이지: 구역마다 한 화면, 휠·트랙패드 한 번에 한 구역 (CSS 스크롤 스냅) */
+:root { --head: 64px; }
+html { scroll-padding-top: var(--head); }
+.page { min-height: calc(100svh - var(--head)); display: flex; flex-direction: column; justify-content: center; scroll-snap-align: start; scroll-snap-stop: always; }
+.page > .wrap { width: 100%; }
+footer { scroll-snap-align: end; }
+@media (max-width: 960px) and (min-height: 560px) {
+  html { scroll-snap-type: y proximity; }
+}
+
+/* 글자 체계 */
+.display { font-size: clamp(30px, 4vw, 52px); }
+.title { font-size: clamp(26px, 3vw, 40px); }
+.lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--muted); max-width: 34em; }
+.detail { font-size: 16px; color: var(--muted); line-height: 1.6; }
+.detail b { display: block; color: var(--green-ink); font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+
+/* 버튼 */
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 22px; border-radius: 999px; border: 0; font: inherit; font-size: 15px; font-weight: 700; text-decoration: none; cursor: pointer; white-space: nowrap; background: var(--green); color: var(--on-green); transition: transform .15s ease, opacity .15s ease; }
+.btn:hover { transform: translateY(-1px); opacity: .92; }
+
+/* 화면 캡처 */
+.shot { margin: 0; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 8px; box-shadow: var(--shadow); }
+.shot img { border-radius: 8px; width: 100%; background: #fff; }
+.shot a { display: block; }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 720px) { .scroll-x .wide { min-width: 720px; } }
+
+/* 등장: 스크립트가 있을 때만 숨겼다가 한 번 보여 준다 */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .btn { transition: none; }
+}
+
+/* 상단 */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ivory); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--ivory) 90%, transparent); backdrop-filter: blur(10px); }
+.top .wrap { display: flex; align-items: center; gap: 32px; height: 64px; }
+.brand { font-weight: 800; font-size: 21px; letter-spacing: -0.04em; color: var(--brown); text-decoration: none; }
+.brand small { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); margin-left: 6px; }
+.top nav { display: flex; gap: 28px; margin-left: auto; font-size: 15px; }
+.top nav a { color: var(--muted); text-decoration: none; }
+.top nav a:hover { color: var(--brown); }
+.top .btn { padding: 9px 18px; }
+@media (max-width: 860px) { .top .wrap { gap: 16px; } .top nav { font-size: 14px; } }
+
+/* Hero: 로고 결합 애니메이션 → 브랜드 메시지 → 버튼 */
+.hero { min-height: min(100svh - 64px, 860px); display: grid; align-content: center; justify-items: center; gap: 28px; padding-block: 64px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); text-align: center; }
+/* 공식 SVG가 오면 .logo-anim 안에 넣는다. 자소 그룹 id는 #j-m #j-a #j-d #j-i, 결합된 상태는 .logo-anim.joined */
+.logo-anim { width: 168px; aspect-ratio: 1; display: grid; place-items: center; border: 1px dashed var(--line); border-radius: 24px; color: var(--muted); font-size: 13px; }
+.logo-anim svg { width: 100%; height: 100%; }
+.hero h1 { font-size: clamp(26px, 2.8vw, 38px); }
+.hero .lede { margin: 0 auto; max-width: none; font-size: clamp(19px, 1.75vw, 24px); font-weight: 500; line-height: 1.5; letter-spacing: -0.03em; color: var(--ink); }
+.hero .btn { margin-top: 8px; padding: 14px 28px; font-size: 16px; }
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero:not(.play) :is(.logo-anim, h1, .lede, .btn) { opacity: 0; }
+  .hero.play .logo-anim { animation: rise .7s ease both; }
+  .hero.play h1 { animation: rise .7s .9s ease both; }
+  .hero.play .lede { animation: rise .7s 1.2s ease both; }
+  .hero.play .btn { animation: rise .7s 1.5s ease both; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(20px); } }
+
+/* 시나리오 공통 */
+.scene { padding-block: 120px 128px; }
+.scene.paper { background: var(--sand); }
+.scene.sand { background: var(--sand); }
+.block + .block { margin-top: 112px; }
+@media (max-width: 720px) { .scene { padding-block: 72px 80px; } .block + .block { margin-top: 72px; } }
+
+/* 01 문제: 왼쪽 말풍선 두 개와 오른쪽 시간표의 높이를 맞춘 한 장면 */
+.s1-problem { background: var(--problem); padding-block: 104px 96px; }
+.s1-head { font-size: clamp(26px, 2.8vw, 38px); margin-bottom: 48px; }
+.chat-scene { display: grid; grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); gap: 48px; align-items: stretch; }
+.chat { display: flex; flex-direction: column; gap: 28px; }
+.msg { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.msg.out { align-items: flex-end; }
+.msg.out .who { text-align: right; }
+.who { font-size: 15px; font-weight: 700; color: var(--brown); }
+.who span { font-weight: 500; color: var(--muted); margin-left: 6px; }
+.bubble { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 24px 30px; border-radius: 22px; font-size: clamp(19px, 1.75vw, 24px); font-weight: 500; line-height: 1.5; letter-spacing: -0.03em; color: #302F2C; box-shadow: var(--shadow); }
+.bubble b { font-weight: 800; }
+.msg.in .bubble, .msg:not(.out) .bubble { background: #FFFFFF; border-top-left-radius: 6px; }
+.msg.out .bubble { background: #A8D5B8; border-top-right-radius: 6px; width: 100%; }
+.s1-table { display: flex; }
+.s1-table .shot { flex: 1; display: flex; }
+.s1-table .shot img { height: 100%; object-fit: cover; object-position: top left; }
+/* 차례로: 이교사 → 김교사 → 시간표, 0.3초 간격 */
+.s1-problem .reveal { transition-duration: .5s; }
+.js .s1-problem .msg.out.reveal { transition-delay: .3s; }
+.js .s1-problem .s1-table.reveal { transition-delay: .6s; }
+/* 01 해결: 여러 배정안 화면을 크게, 아래에 짧은 설명 둘 */
+.s1-solve { background: var(--ivory); padding-block: 88px 120px; }
+.s1-solve-head { font-size: clamp(24px, 2.5vw, 34px); margin: 0 auto 48px; text-align: center; }
+.cap-slot { border: 1px dashed var(--line); border-radius: 16px; background: var(--paper); display: grid; place-items: center; text-align: center; padding: 24px; color: var(--muted); font-size: 15px; }
+.cap-slot img { width: 100%; height: 100%; object-fit: contain; }
+.options-slot { aspect-ratio: 16 / 7; }
+.pick { max-width: 1120px; margin: 0 auto; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); padding: 24px; }
+.opts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.opt { font: inherit; text-align: left; cursor: pointer; display: grid; gap: 8px; padding: 18px; border-radius: 12px; border: 1.5px solid #DCE3E0; background: #fff; color: #18211E; transition: border-color .15s, box-shadow .15s; }
+.opt:hover { border-color: #A8D5B8; }
+.opt[aria-pressed="true"] { border: 2px solid #286B50; box-shadow: 0 0 0 3px color-mix(in srgb, #286B50 15%, transparent); }
+.opt-top { display: flex; align-items: center; gap: 8px; }
+.opt-top b { font-size: 17px; }
+.opt-top em { font-style: normal; font-size: 12px; font-weight: 700; color: #286B50; border: 1px solid #286B50; border-radius: 999px; padding: 1px 8px; }
+.opt-top i { margin-left: auto; font-style: normal; font-size: 13px; color: #5A6763; }
+.opt-desc { font-size: 13px; color: #5A6763; line-height: 1.5; min-height: 3em; }
+.opt-m { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding-top: 10px; border-top: 1px solid #DCE3E0; text-align: center; font-size: 12px; color: #5A6763; }
+.opt-m strong { display: block; font-size: 20px; color: #18211E; font-variant-numeric: tabular-nums; }
+.pick-result { margin-top: 20px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; padding-top: 20px; border-top: 1px solid var(--line); }
+.pick-for { font-size: 15px; font-weight: 700; color: var(--brown); }
+.pick-lines ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; font-size: 16px; color: #302F2C; }
+.pick-lines li span { color: #286B50; font-weight: 700; }
+.pick-lines li span.gap { color: #C46F65; }
+.pick-act { display: grid; gap: 8px; justify-items: end; }
+.pick-act .reset { background: transparent; color: #286B50; border: 1px solid var(--line); }
+.pick-done { font-size: 15px; font-weight: 700; color: #286B50; text-align: right; }
+.pick-done:empty { display: none; }
+.pick.done .opt { cursor: default; }
+@media (max-width: 860px) { .opts { grid-template-columns: minmax(0, 1fr); } .pick-result { grid-template-columns: minmax(0, 1fr); } .pick-act { justify-items: stretch; } .pick-done { text-align: left; } .pick { padding: 16px; } }
+.pair-notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; margin-top: 32px; }
+.pair-notes h4, .set figcaption b, .extra figcaption b { margin: 0; display: block; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: #286B50; }
+.pair-notes p { margin-top: 6px; font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
+@media (max-width: 720px) { .pair-notes { grid-template-columns: minmax(0, 1fr); gap: 20px; } .options-slot { aspect-ratio: 4 / 3; } }
+/* 02 문제: 큰 대사 한 줄, 넓은 사진, 아래 설명 (배경·글자는 01 문제와 같음) */
+.photo { margin: 0; aspect-ratio: 21 / 8; border-radius: 16px; border: 1px dashed var(--line); background: var(--sand); display: grid; place-items: center; text-align: center; padding: 24px; }
+.photo span { font-size: 15px; color: var(--muted); }
+.s2-desc { margin-top: 32px; font-size: clamp(18px, 1.6vw, 22px); font-weight: 600; color: var(--brown); letter-spacing: -0.02em; }
+.js .s2-problem .photo.reveal { transition-delay: .3s; }
+.js .s2-problem .s2-desc.reveal { transition-delay: .6s; }
+.s2-problem .reveal { transition-duration: .5s; }
+/* 02 해결: PC 시간표(두 명) → 화살표 → 휴대폰 → 부가 기능. 정해 둔 한 칸만 바꿔 볼 수 있다 */
+.s2-solve-copy { display: grid; gap: 14px; justify-items: center; text-align: center; margin-bottom: 56px; }
+.s2-solve-copy .s1-solve-head { margin: 0; }
+.s2-solve-copy p { font-size: clamp(17px, 1.5vw, 19px); color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
+.flow { display: grid; grid-template-columns: minmax(0, 1fr) 56px 250px 200px; gap: 24px; align-items: center; max-width: 1180px; margin: 0 auto; }
+.browser { margin: 0; min-width: 0; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
+.browser-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--sand); }
+.browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.browser-bar span { margin-left: 12px; height: 18px; flex: 1; max-width: 260px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); }
+/* 실제 지원인력 현황 화면의 칸 모양과 층 색 (2층 노랑, 4층 파랑) */
+.tt { --f2: #e3a21a; --f4: #3b82d6; font-size: 14px; color: #18211E; background: #fff; }
+.tt-row { display: grid; grid-template-columns: 76px minmax(0, 1fr) minmax(0, 1fr); border-top: 1px solid #DCE3E0; }
+.tt-row.head { border-top: 0; font-weight: 800; font-size: 15px; }
+.tt-row.head > div { padding: 10px 12px; }
+.tt-row.head small { font-weight: 500; color: #5A6763; margin-left: 6px; font-size: 12px; }
+.tt-axis { padding: 8px 10px; font-weight: 700; font-size: 13px; line-height: 1.35; background: #fff; }
+.tt-axis small { display: block; font-family: ui-monospace, Menlo, monospace; font-weight: 500; color: #5A6763; font-size: 12px; }
+.tt-row.brk .tt-axis, .tt-row.brk .tt-cell { background: #EEF1F0; }
+.tt-cell { padding: 6px; border-left: 1px solid #DCE3E0; min-height: 64px; display: grid; }
+.job { position: relative; border-radius: 6px; border: 1px solid color-mix(in srgb, var(--c) 70%, #fff); background: color-mix(in srgb, var(--c) 16%, #fff); padding: 6px 10px; display: grid; align-content: center; justify-items: center; gap: 2px; }
+.job .cls { position: absolute; left: 8px; top: 4px; font-size: 12px; }
+.job .sub { position: absolute; right: 8px; top: 4px; font-size: 12px; }
+.job b { font-size: 15px; margin-top: 10px; }
+.job.f2 { --c: var(--f2); } .job.f4 { --c: var(--f4); }
+/* 바꿔 볼 수 있는 칸 하나 */
+.job.demo { outline: 2px dashed #286B50; outline-offset: 3px; }
+.demo-ctl { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding: 12px 14px; border-top: 1px solid var(--line); background: var(--paper); font-size: 14px; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
+.demo-ctl .btn { padding: 8px 14px; font-size: 14px; }
+.demo-ctl .reset { background: transparent; color: #286B50; border: 1px solid var(--line); }
+.demo-ctl .hint b { color: #286B50; }
+.flow-arrow svg { width: 100%; height: auto; display: block; }
+.handset { margin: 0; padding: 10px; border-radius: 36px; background: #302F2C; box-shadow: var(--shadow); aspect-ratio: 9 / 19.5; }
+.handset-screen { height: 100%; border-radius: 28px; background: #fff; overflow: hidden; display: flex; flex-direction: column; }
+.handset-screen > img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.m-head { padding: 22px 16px 12px; border-bottom: 1px solid #DCE3E0; }
+.m-head b { display: block; font-size: 16px; color: #18211E; }
+.m-head span { font-size: 12px; color: #5A6763; }
+.m-list { list-style: none; margin: 0; padding: 10px 12px; display: grid; gap: 8px; }
+.m-list li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; align-items: start; padding: 10px; border-radius: 10px; border: 1px solid #DCE3E0; font-size: 13px; color: #18211E; }
+.m-list time { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: #5A6763; }
+.m-list b { display: block; font-size: 14px; }
+.m-list li.new { border-color: #286B50; }
+.m-list li.flash { animation: flash 1.6s ease-out; }
+@keyframes flash { from { background: #DDF2E7; } to { background: #fff; } }
+@media (prefers-reduced-motion: reduce) { .m-list li.flash { animation: none; background: #DDF2E7; } }
+.extras { display: grid; gap: 20px; }
+.extra { margin: 0; display: grid; gap: 10px; }
+.extra .cap-slot { aspect-ratio: 4 / 3; padding: 10px; font-size: 12px; }
+.extra figcaption { font-size: 15px; line-height: 1.5; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
+.extra figcaption b { font-size: 17px; margin-bottom: 2px; }
+.s2-solve .reveal { transition-duration: .5s; }
+.js .s2-solve .flow-arrow.reveal { transition-delay: .3s; }
+.js .s2-solve .handset.reveal { transition-delay: .6s; }
+.js .s2-solve .extras.reveal { transition-delay: .9s; }
+@media (max-width: 1100px) {
+  .flow { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 20px; }
+  .browser { width: 100%; max-width: 640px; }
+  .flow-arrow { width: 48px; transform: rotate(90deg); }
+  .js .s2-solve .flow-arrow.reveal { transform: rotate(90deg) translateX(-14px); }
+  .js .s2-solve .flow-arrow.reveal.in { transform: rotate(90deg); }
+  .handset { width: min(260px, 80%); }
+  .extras { width: min(420px, 100%); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+@media (max-width: 960px) { .photo { aspect-ratio: 4 / 3; } }
+@media (max-width: 480px) { .extras { grid-template-columns: minmax(0, 1fr); } .tt-row { grid-template-columns: 60px minmax(0, 1fr) minmax(0, 1fr); } }
+/* 03 문제: 학생별 요구사항 카드가 하나씩 늘어나며 떠 있다 (가상 예시) */
+.float-field { position: relative; height: 340px; }
+.fc { position: absolute; left: var(--l); top: var(--t); width: min(240px, 20%); }
+.fc-in { display: grid; gap: 4px; padding: 16px 20px; border-radius: 16px; background: #FFFFFF; border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(73, 55, 47, 0.06), 0 10px 24px -18px rgba(73, 55, 47, 0.35); }
+.fc-in b { font-size: 19px; font-weight: 800; color: #49372F; letter-spacing: -0.02em; }
+.fc-in span { font-size: 16px; color: #302F2C; line-height: 1.5; }
+.js .s3-problem .fc.reveal { transform: translate(var(--fx), var(--fy)); transition-duration: .6s; transition-delay: calc(.25s + var(--i) * .3s); }
+.js .s3-problem .fc.reveal.in { transform: none; }
+.js .s3-problem .s1-head.reveal { transition-duration: .5s; }
+@media (prefers-reduced-motion: no-preference) {
+  .fc.in .fc-in { animation: drift var(--d) ease-in-out calc(1s + var(--i) * .3s) infinite alternate; }
+}
+@keyframes drift { to { transform: translate(var(--mx), var(--my)); } }
+@media (max-width: 960px) {
+  .float-field { height: auto; display: flex; flex-direction: column; gap: 14px; }
+  .fc { position: static; width: min(320px, 88%); }
+  .fc:nth-child(even) { align-self: flex-end; }
+}
+/* 03 해결: 네 가지 설정을 같은 비중의 2×2로 */
+.settings { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px 32px; max-width: 1120px; margin: 0 auto; }
+.set { margin: 0; display: grid; gap: 14px; align-content: start; }
+.set-img { aspect-ratio: 16 / 9; background: #FFFFFF; border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; place-items: center; overflow: hidden; }
+.set-img { position: relative; }
+.set-img img { position: absolute; inset: 16px; width: calc(100% - 32px); height: calc(100% - 32px); object-fit: contain; }
+.set figcaption { font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
+.set figcaption b { font-size: 21px; margin-bottom: 4px; }
+.s3-solve .reveal { transition-duration: .5s; }
+.js .s3-solve .set.reveal:nth-child(2) { transition-delay: .1s; }
+.js .s3-solve .set.reveal:nth-child(3) { transition-delay: .2s; }
+.js .s3-solve .set.reveal:nth-child(4) { transition-delay: .3s; }
+@media (max-width: 720px) { .settings { grid-template-columns: minmax(0, 1fr); } }
+/* 서비스 전체: 교사 PC 화면과 지원인력 휴대폰 */
+.overview { background: var(--sand); padding-block: 112px 136px; text-align: center; }
+.overview .copy { display: grid; gap: 14px; justify-items: center; margin-bottom: 56px; }
+.devices { position: relative; max-width: 1100px; margin: 0 auto; padding-right: 120px; }
+.phone { position: absolute; right: 0; bottom: -40px; width: 230px; aspect-ratio: 9 / 19.5; border-radius: 36px; background: #302F2C; padding: 10px; box-shadow: var(--shadow); }
+.phone-screen { height: 100%; border-radius: 28px; background: #fff; overflow: hidden; }
+.phone-screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+@media (max-width: 720px) { .overview { padding-block: 72px 96px; } }
+
+/* CTA */
+.cta { background: var(--green); color: var(--on-green); padding-block: 112px; }
+.contact { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 64px; align-items: start; }
+.contact .intro { display: grid; gap: 18px; padding-top: 8px; }
+.cta h2 { color: var(--on-green); font-size: clamp(28px, 3.8vw, 48px); }
+.cta .intro p { color: color-mix(in srgb, var(--on-green) 82%, transparent); font-size: 18px; }
+.cta form { background: var(--paper); color: var(--ink); border-radius: 20px; padding: 28px; display: grid; gap: 16px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .field legend { font-size: 14px; font-weight: 700; padding: 0; color: var(--brown); }
+.optional { font-weight: 500; color: var(--muted); }
+input, textarea { font: inherit; font-size: 16px; width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--sand); color: var(--ink); }
+input:focus, textarea:focus { outline: none; border-color: var(--green); }
+textarea { resize: vertical; min-height: 96px; }
+details { border-top: 1px solid var(--line); padding-top: 14px; }
+summary { cursor: pointer; font-size: 14px; font-weight: 600; color: var(--muted); }
+details .more { display: grid; gap: 16px; margin-top: 16px; }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.roles { display: flex; flex-wrap: wrap; gap: 8px; }
+.roles label { position: relative; cursor: pointer; font-weight: 500; color: var(--ink); }
+.roles input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.roles span { display: inline-block; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: 14px; }
+.roles input:checked + span { border-color: var(--green); color: var(--green-ink); font-weight: 700; }
+.roles input:focus-visible + span { outline: 2px solid var(--green); outline-offset: 2px; }
+.hp { position: absolute; left: -9999px; }
+.cta form .btn { margin: 0; width: 100%; background: var(--green); color: var(--on-green); }
+.fine { font-size: 14px; color: var(--muted); text-align: center; }
+.cta form .fine, .cta form .status { margin: 0; }
+.status { font-size: 15px; font-weight: 700; text-align: center; }
+.status:empty { display: none; }
+.status.ok { color: var(--green-ink); }
+.status.bad { color: var(--error); }
+
+footer { padding-block: 32px 44px; font-size: 14px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+/* 태블릿·모바일 */
+@media (max-width: 960px) {
+  .chat-scene, .solve-row, .contact { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .devices { padding-right: 0; }
+  .phone { position: static; margin: 24px auto 0; width: 200px; }
+  .msg { max-width: 100%; }
+  .s1-head { margin-bottom: 32px; }
+  .s1-problem { padding-block: 72px 64px; }
+  .s1-solve { padding-block: 64px 80px; }
+  .chat-scene { align-items: start; }
+  .msg, .bubble { flex: none; }
+  .s1-table .shot img { height: auto; }
+}
+@media (max-width: 560px) { .row2 { grid-template-columns: minmax(0, 1fr); } .cta form { padding: 20px; } }
+
+/* 풀페이지 맞춤 (데스크톱): 여백과 캡처 높이를 화면 높이에 맞춰 한 화면에 들어오게 */
+.hero { min-height: calc(100svh - var(--head)); }
+@media (min-width: 961px) {
+  .page { padding-block: clamp(28px, 6vh, 96px); }
+  .s1-head { margin-bottom: clamp(20px, 4.5vh, 48px); }
+  .s1-solve-head, .s2-solve-copy { margin-bottom: clamp(20px, 4.5vh, 56px); }
+  .chat { gap: clamp(16px, 3vh, 28px); }
+  .bubble { padding: clamp(16px, 2.6vh, 24px) 30px; }
+  .photo { aspect-ratio: auto; height: min(calc((100vw - 48px) * 8 / 21), 46vh); }
+  .s2-desc { margin-top: clamp(16px, 3vh, 32px); }
+  .flow { grid-template-columns: minmax(0, 1fr) 56px auto 200px; }
+  .handset { width: auto; height: clamp(340px, calc(100svh - var(--head) - 300px), 560px); }
+  .extra .cap-slot { aspect-ratio: auto; height: clamp(80px, 14vh, 150px); }
+  .settings { gap: clamp(16px, 3vh, 40px) 32px; }
+  .set { gap: 10px; }
+  .set-img { aspect-ratio: auto; height: clamp(120px, calc((100svh - var(--head) - 400px) / 2), 300px); }
+  .set figcaption { font-size: 16px; }
+  .set figcaption b { font-size: 20px; }
+  .float-field { height: clamp(260px, 44vh, 360px); }
+  .overview .copy { margin-bottom: clamp(20px, 4vh, 56px); }
+  .devices { max-width: min(1100px, calc((100svh - var(--head) - 260px) * 1.6 + 120px)); }
+  .phone { width: clamp(150px, 21%, 230px); bottom: -24px; }
+  .cta { padding-block: clamp(28px, 6vh, 96px); }
+  .pick { padding: clamp(14px, 2.4vh, 24px); }
+  .opt { padding: clamp(12px, 2vh, 18px); }
+  .pick-result { margin-top: clamp(12px, 2vh, 20px); padding-top: clamp(12px, 2vh, 20px); }
+  .pair-notes { margin-top: clamp(16px, 3vh, 32px); }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">마디<small>MADI</small></a>
+    <nav aria-label="페이지 안내">
+      <a href="#s1">기능 살펴보기</a>
+    </nav>
+    <a class="btn" href="#contact">도입 문의</a>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="page hero">
+    <div class="logo-anim" id="logo-anim" aria-hidden="true">
+      <!-- 공식 로고 SVG 자리: ㅁ ㅏ ㄷ ㅣ 자소가 움직여 심벌마크로 결합한 뒤 메시지가 나타난다 -->
+      로고 자리
+    </div>
+    <h1>마디마다 함께.</h1>
+    <p class="lede">학생에게 필요한 지원이 필요한 순간에 닿도록<br>특수교사와 지원인력 사이의 일정과 정보를 연결합니다.</p>
+    <a class="btn" href="#s1">마디 살펴보기</a>
+  </section>
+
+  <!-- 01 문제 -->
+  <section id="s1" class="page s1-problem">
+    <div class="wrap">
+      <h2 class="s1-head reveal">갑작스러운 변경에도 필요한 지원을 우선으로.</h2>
+      <div class="chat-scene">
+        <div class="chat">
+          <div class="msg reveal">
+            <p class="who">이교사 <span>통합학급 담임</span></p>
+            <div class="bubble">
+              <p><b>선생님 오늘 3교시 체육관 활동에 지원이 필요할 것 같아요.</b></p>
+              <p>가영이가 이동이랑 활동에 참여할 때 도움이 필요할 것 같아서요. 가능할까요?</p>
+            </div>
+          </div>
+          <div class="msg out reveal">
+            <p class="who">김교사 <span>특수교사</span></p>
+            <div class="bubble"><p><b>이미 모두 배정되어 있는데 어떤 분을 보내야 하지..?</b></p></div>
+          </div>
+        </div>
+        <div class="scroll-x reveal s1-table"><figure class="shot wide"><img src="images/s1-problem.webp" width="934" height="614" loading="lazy" alt="9월 15일 화요일 지원인력 시간표 09:40–11:30. 3교시에 김지원은 박다은, 이지원은 최라희, 박지원은 이나연을 지원하고 있고 앞뒤 쉬는 시간에도 모두 이동 지원이 있다"></figure></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 해결 -->
+  <section class="page s1-solve">
+    <div class="wrap">
+      <h3 class="s1-solve-head reveal">기존 일정과 학생별 지원 필요도를 고려해 새로운 배정안을 제안합니다.</h3>
+      <div class="pick reveal" id="pick">
+        <div class="opts" role="group" aria-label="배정안 고르기">
+          <button type="button" class="opt" data-k="A" aria-pressed="true">
+            <span class="opt-top"><b>변경 최소</b><em>추천</em><i>A</i></span>
+            <span class="opt-desc">지금 배정을 최대한 유지. 체크된 시작 구간은 비우지 않음</span>
+            <span class="opt-m"><span><strong>11</strong>바뀌는 칸</span><span><strong>5</strong>지원 공백</span><span><strong>1</strong>늦게 도착</span><span><strong>2</strong>알림 인원</span></span>
+          </button>
+          <button type="button" class="opt" data-k="B" aria-pressed="false">
+            <span class="opt-top"><b>처음부터 다시</b><i>B</i></span>
+            <span class="opt-desc">이전 배정에 묶이지 않고 다시 배정. 공백이 줄 수 있지만 많이 바뀜</span>
+            <span class="opt-m"><span><strong>6</strong>바뀌는 칸</span><span><strong>5</strong>지원 공백</span><span><strong>4</strong>늦게 도착</span><span><strong>2</strong>알림 인원</span></span>
+          </button>
+          <button type="button" class="opt" data-k="C" aria-pressed="false">
+            <span class="opt-top"><b>늦게 도착 없음</b><i>C</i></span>
+            <span class="opt-desc">두 번째 이동을 쓰지 않음. 모자라면 지원 공백</span>
+            <span class="opt-m"><span><strong>11</strong>바뀌는 칸</span><span><strong>6</strong>지원 공백</span><span><strong>0</strong>늦게 도착</span><span><strong>2</strong>알림 인원</span></span>
+          </button>
+        </div>
+        <div class="pick-result">
+          <div class="pick-lines" aria-live="polite">
+            <p class="pick-for">김가영 3교시 체육관 활동</p>
+            <ul id="pick-list"></ul>
+          </div>
+          <div class="pick-act">
+            <button type="button" class="btn" id="pick-ok">A안으로 확정</button>
+            <button type="button" class="btn reset" id="pick-reset" hidden>처음으로</button>
+            <p class="pick-done" id="pick-done" role="status"></p>
+          </div>
+        </div>
+      </div>
+      <div class="pair-notes reveal">
+        <div><h4>여러 배정안을 한눈에</h4><p>기존 일정과 학생별 지원 필요도를 고려한 배정안을 비교합니다.</p></div>
+        <div><h4>최종 선택은 선생님이</h4><p>제안된 배정안 중 적절한 안을 직접 선택하고 확정합니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 문제 -->
+  <section id="s2" class="page s1-problem s2-problem">
+    <div class="wrap">
+      <h2 class="s1-head reveal">어? 가영이는 누가 데려가기로 했죠?</h2>
+      <figure class="photo reveal" role="img" aria-label="사진 자리: 체육관 앞에서 지원인력을 기다리는 학생의 뒷모습">
+        <span>사진 자리 · 체육관 앞에서 지원인력을 기다리는 학생의 뒷모습</span>
+      </figure>
+      <p class="s2-desc reveal">시간표를 변경해도 담당자에게 제대로 전달되지 않으면 지원이 어긋날 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- 02 해결 -->
+  <section class="page s1-solve s2-solve">
+    <div class="wrap">
+      <div class="s2-solve-copy reveal">
+        <h3 class="s1-solve-head">변경된 순간 담당자의 시간표까지 바로.</h3>
+        <p>변경사항은 모바일 앱으로 즉시 전달되고 담당자의 시간표에도 자동 반영됩니다.</p>
+      </div>
+      <div class="flow" id="demo">
+        <figure class="browser reveal">
+          <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+          <div class="tt" aria-label="교사용 지원인력 시간표 9월 15일 오후">
+            <div class="tt-row head"><div></div><div>김지원<small>A01</small></div><div>이지원<small>A02</small></div></div>
+            <div class="tt-row"><div class="tt-axis">5교시<small>13:00</small></div>
+              <div class="tt-cell"><div class="job f2"><span class="cls">3-2</span><span class="sub">과학</span><b>김가영</b></div></div>
+              <div class="tt-cell"><div class="job f4"><span class="cls">5-3</span><span class="sub">과학</span><b>박다은</b></div></div></div>
+            <div class="tt-row brk"><div class="tt-axis">쉬는 시간<small>13:40</small></div><div class="tt-cell"></div><div class="tt-cell"></div></div>
+            <div class="tt-row"><div class="tt-axis">6교시<small>13:50</small></div>
+              <div class="tt-cell" id="slot-a"><div class="job f4 demo" id="demo-job"><span class="cls">5-5</span><span class="sub">음악</span><b>강바다</b></div></div>
+              <div class="tt-cell" id="slot-b"></div></div>
+          </div>
+          <div class="demo-ctl">
+            <span class="hint" id="demo-hint">이지원 선생님은 <b>6교시가 비어 있어요</b></span>
+            <button type="button" class="btn" id="demo-go">이지원에게 맡기기</button>
+            <button type="button" class="btn reset" id="demo-reset" hidden>처음으로</button>
+          </div>
+        </figure>
+        <div class="flow-arrow reveal" aria-hidden="true">
+          <svg viewBox="0 0 64 24"><path d="M2 12 H58 M48 3 L60 12 L48 21" fill="none" stroke="#286B50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <figure class="handset reveal">
+          <div class="handset-screen" aria-label="이지원 선생님의 모바일 시간표 시연">
+            <!-- 지원인력 앱 캡처가 나오면 아래 시연 대신 <img>를 넣는다 -->
+            <div class="m-head"><b>이지원</b><span>9월 15일 (화) 오늘 할 일</span></div>
+            <ul class="m-list" id="m-list" aria-live="polite">
+              <li><time>13:00</time><span><b>박다은</b>과학 · 5-3</span></li>
+            </ul>
+          </div>
+        </figure>
+        <div class="extras reveal">
+          <figure class="extra">
+            <div class="cap-slot" role="img" aria-label="변경 알림 화면 캡처 자리">캡처 자리</div>
+            <figcaption><b>변경 즉시 알림</b>담당 일정이 변경되면 지원인력의 모바일 앱으로 알림이 전달됩니다.</figcaption>
+          </figure>
+          <figure class="extra">
+            <div class="cap-slot" role="img" aria-label="학생별 지원 완료 확인 화면 캡처 자리">캡처 자리</div>
+            <figcaption><b>학생별 지원 완료 확인</b>학생별 지원이 완료되었는지 확인할 수 있습니다.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 문제 -->
+  <section id="s3" class="page s1-problem s3-problem">
+    <div class="wrap">
+      <h2 class="s1-head reveal">학생마다 필요한 지원도 다른데...</h2>
+      <div class="float-field" aria-label="학생별 지원 요구사항 예시">
+        <div class="fc reveal" style="--l:2%; --t:6%; --fx:-14px; --fy:10px; --i:0; --d:7.5s; --mx:3px; --my:-4px"><div class="fc-in"><b>김가영</b><span>체육 활동 시 이동 지원 필요</span></div></div>
+        <div class="fc reveal" style="--l:27%; --t:0%; --fx:10px; --fy:14px; --i:1; --d:9s; --mx:-3px; --my:5px"><div class="fc-in"><b>이나연</b><span>과학실 이동 지원 필요</span></div></div>
+        <div class="fc reveal" style="--l:53%; --t:9%; --fx:-10px; --fy:-12px; --i:2; --d:8s; --mx:4px; --my:4px"><div class="fc-in"><b>최라희</b><span>활동 중 지속적인 지원 필요</span></div></div>
+        <div class="fc reveal" style="--l:78%; --t:2%; --fx:14px; --fy:10px; --i:3; --d:10s; --mx:-4px; --my:-3px"><div class="fc-in"><b>정마루</b><span>특정 시간대 집중 지원 필요</span></div></div>
+        <div class="fc reveal" style="--l:10%; --t:56%; --fx:-12px; --fy:-10px; --i:4; --d:8.5s; --mx:3px; --my:5px"><div class="fc-in"><b>박다은</b><span>급식시간 지원 필요</span></div></div>
+        <div class="fc reveal" style="--l:39%; --t:62%; --fx:0px; --fy:16px; --i:5; --d:9.5s; --mx:-5px; --my:-3px"><div class="fc-in"><b>강바다</b><span>같은 층 이동 시 동행 가능</span></div></div>
+        <div class="fc reveal" style="--l:67%; --t:54%; --fx:12px; --fy:-10px; --i:6; --d:7s; --mx:4px; --my:-5px"><div class="fc-in"><b>조사랑</b><span>지원 시 주의사항 확인 필요</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 해결 -->
+  <section class="page s1-solve s3-solve">
+    <div class="wrap">
+      <h3 class="s1-solve-head reveal">복잡한 조건은 마디가, 최종 판단은 선생님이.</h3>
+      <div class="settings">
+        <figure class="set reveal">
+          <div class="set-img"><img src="images/s3-need.webp" width="320" height="130" loading="lazy" alt="학생 설정. 과학은 시작·중간·종료, 영어는 시작·종료, 음악은 시작 구간 지원"></div>
+          <figcaption><b>학생별 지원 필요도</b>과목과 활동에 따라 학생에게 필요한 지원 수준을 설정합니다.</figcaption>
+        </figure>
+        <figure class="set reveal">
+          <div class="set-img"><img src="images/s3-note.webp" width="450" height="100" loading="lazy" alt="학생 설정. 점심시간 지원, 지원 방법·유의사항 항목"></div>
+          <figcaption><b>지원 시 주의사항</b>학생별 지원 방법과 주의할 점을 함께 기록하고 확인합니다.</figcaption>
+        </figure>
+        <figure class="set reveal">
+          <div class="set-img"><img src="images/s3-school.webp" width="600" height="251" loading="lazy" alt="학교 층 배치. 층마다 반 목록"></div>
+          <figcaption><b>같은 층 이동 고려</b>같은 층으로 이동하는 학생들을 함께 지원할 수 있도록 동선을 고려합니다.</figcaption>
+        </figure>
+        <figure class="set reveal">
+          <div class="set-img"><img src="images/s3-rotation.webp" width="245" height="422" loading="lazy" alt="9월 15일 박다은 학생의 하루. 3교시는 김지원, 11:20 이동은 박지원, 5교시는 이지원, 13:40 이동은 박지원이 맡는다"></div>
+          <figcaption><b>여러 지원인력의 고른 배정</b>특정 학생에게 한 지원인력만 계속 배정되지 않도록 골고루 배정합니다.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 서비스 전체 -->
+  <section class="page overview">
+    <div class="wrap">
+      <div class="copy reveal">
+        <h2 class="title">학생에게 필요한 지원이 어느 순간에도 끊어지지 않도록.</h2>
+        <p class="lede">교사의 계획부터 지원인력의 하루까지.</p>
+      </div>
+      <div class="devices reveal">
+        <figure class="shot"><img src="images/overview-desktop.webp" width="1440" height="900" loading="lazy" alt="교사용 마디 웹 화면. 왼쪽 메뉴와 학생별 하루 시간표"></figure>
+        <div class="phone" aria-hidden="true">
+          <div class="phone-screen"><!-- 지원인력 앱 캡처가 나오면 <img>를 넣는다 --></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="page cta">
+    <div class="wrap contact">
+      <div class="intro">
+        <h2>우리 학교에서도<br>마디를 만나보세요.</h2>
+        <p>마디는 정식 출시를 준비하고 있습니다. 먼저 사용해 보고 싶은 학교에는 도입 일정과 이용 방법을 안내해 드릴게요.</p>
+      </div>
+      <form id="inquiry" action="https://formspree.io/f/mrpppjoz" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="마디 도입 문의">
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="field">
+          <label for="f-email">이메일</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="name@school.go.kr">
+        </div>
+        <div class="field">
+          <label for="f-school">학교 이름</label>
+          <input id="f-school" name="school" type="text" autocomplete="organization" required placeholder="○○초등학교">
+        </div>
+        <div class="field">
+          <label for="f-msg">추가 문의사항 <span class="optional">(선택)</span></label>
+          <textarea id="f-msg" name="message" placeholder="궁금한 점이나 학교 상황을 적어 주세요."></textarea>
+        </div>
+        <button class="btn" type="submit">문의 남기기</button>
+        <p class="status" id="f-status" role="status" aria-live="polite"></p>
+        <p class="fine">남긴 내용은 도입 안내에만 써요.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 마디 MADI</span>
+    <span>화면 속 학교·학생·선생님 이름은 모두 가명입니다</span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  document.documentElement.classList.add("js");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // 영역에 들어올 때마다 등장 애니메이션을 다시 재생 (화면을 완전히 벗어나면 숨겨 두었다가 다시 보여 준다). 시연 상태는 건드리지 않는다
+  const els = document.querySelectorAll(".reveal");
+  const hero = document.querySelector(".hero");
+  if (still || !("IntersectionObserver" in window)) els.forEach((e) => e.classList.add("in"));
+  else {
+    const io = new IntersectionObserver((list) => list.forEach((x) => {
+      x.target.classList.toggle("in", x.intersectionRatio > 0);
+    }), { rootMargin: "-64px 0px -10% 0px", threshold: [0, 0.01] });
+    els.forEach((e) => io.observe(e));
+    hero.classList.add("play");
+    new IntersectionObserver(([x]) => {
+      if (x.intersectionRatio > 0) { hero.classList.remove("play"); void hero.offsetWidth; hero.classList.add("play"); }
+      else hero.classList.remove("play");
+    }, { rootMargin: "-64px 0px 0px 0px", threshold: [0, 0.01] }).observe(hero);
+  }
+
+  // 01 시연: 실제 9월 15일 계산 결과 세 안 중 하나를 골라 확정
+  const PICK = {
+    A: [["체육관 이동 (10:30)", "맡을 사람 없음", 1], ["활동 지원 (3교시)", "맡을 사람 없음", 1]],
+    B: [["체육관 이동 (10:30)", "김지원 · 10분 늦게 도착", 0], ["교실 복귀 이동 (11:20)", "이지원", 0], ["활동 지원 (3교시)", "맡을 사람 없음", 1]],
+    C: [["체육관 이동 (10:30)", "맡을 사람 없음", 1], ["활동 지원 (3교시)", "맡을 사람 없음", 1], ["교실 복귀 이동 (11:20)", "맡을 사람 없음", 1]],
+  };
+  const pick = document.getElementById("pick");
+  const optBtns = pick.querySelectorAll(".opt");
+  const pickList = document.getElementById("pick-list"), pickOk = document.getElementById("pick-ok");
+  const pickReset = document.getElementById("pick-reset"), pickDone = document.getElementById("pick-done");
+  let chosen = "A";
+  const renderPick = () => {
+    optBtns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.k === chosen)));
+    pickList.innerHTML = PICK[chosen].map(([what, who, gap]) => `<li>${what} → <span class="${gap ? "gap" : ""}">${who}</span></li>`).join("");
+    pickOk.textContent = `${chosen}안으로 확정`;
+  };
+  optBtns.forEach((b) => b.addEventListener("click", () => { if (pick.classList.contains("done")) return; chosen = b.dataset.k; renderPick(); }));
+  pickOk.addEventListener("click", () => {
+    pick.classList.add("done");
+    pickDone.textContent = `${chosen}안으로 확정했어요. 바뀐 지원인력 2명에게 알림을 보냈어요.`;
+    pickOk.hidden = true; pickReset.hidden = false; pickReset.focus();
+  });
+  pickReset.addEventListener("click", () => {
+    pick.classList.remove("done"); chosen = "A"; pickDone.textContent = "";
+    pickReset.hidden = true; pickOk.hidden = false; renderPick();
+  });
+  renderPick();
+
+  // 02 시연: 정해 둔 한 칸(6교시 강바다 음악)만 김지원 → 이지원. 이지원은 13:40–14:30이 비어 있어 다른 배정과 겹치지 않는다
+  const job = document.getElementById("demo-job");
+  const slotA = document.getElementById("slot-a"), slotB = document.getElementById("slot-b");
+  const go = document.getElementById("demo-go"), reset = document.getElementById("demo-reset");
+  const hint = document.getElementById("demo-hint"), list = document.getElementById("m-list");
+  const hintBefore = hint.innerHTML;
+  go.addEventListener("click", () => {
+    slotB.appendChild(job);
+    const li = document.createElement("li");
+    li.className = "new flash"; li.id = "m-new";
+    li.innerHTML = "<time>13:50</time><span><b>강바다</b>음악 · 5-5</span>";
+    list.appendChild(li);
+    hint.innerHTML = "<b>6교시 강바다</b> 담당을 이지원 선생님으로 바꿨어요";
+    go.hidden = true; reset.hidden = false; reset.focus();
+  });
+  reset.addEventListener("click", () => {
+    slotA.appendChild(job);
+    document.getElementById("m-new")?.remove();
+    hint.innerHTML = hintBefore;
+    reset.hidden = true; go.hidden = false; go.focus();
+  });
+
+  // 풀페이지 (데스크톱): 휠·트랙패드·키보드 한 번에 한 구역. 구역이 화면보다 길면 그 안을 먼저 스크롤한다
+  const pages = [...document.querySelectorAll(".page")];
+  const HEAD = 64;
+  const fullpage = () => innerWidth > 960 && innerHeight >= 620;
+  let locked = false, lastInput = 0;
+  const curIndex = () => { let i = 0; pages.forEach((p, k) => { if (p.getBoundingClientRect().top <= HEAD + 4) i = k; }); return i; };
+  const goTo = (i) => {
+    locked = true;
+    scrollTo({ top: pages[i].getBoundingClientRect().top + scrollY - HEAD, behavior: still ? "auto" : "smooth" });
+    const started = Date.now();
+    const wait = setInterval(() => { if (Date.now() - started > 700 && Date.now() - lastInput > 160) { locked = false; clearInterval(wait); } }, 50);
+  };
+  const step = (dir, e) => {
+    const i = curIndex(), r = pages[i].getBoundingClientRect();
+    if (dir > 0 && r.bottom > innerHeight + 2) return;            // 긴 구역: 아래로 마저 읽기
+    if (dir < 0 && r.top < HEAD - 2) return;                     // 긴 구역: 위로 마저 읽기
+    if (dir > 0 && i === pages.length - 1) return;               // 마지막 구역 뒤로는 바닥글까지 그냥 스크롤
+    e.preventDefault();
+    if (locked) return;
+    const next = Math.max(0, Math.min(pages.length - 1, i + dir));
+    if (next !== i) goTo(next);
+  };
+  addEventListener("wheel", (e) => {
+    if (!fullpage() || e.ctrlKey || Math.abs(e.deltaY) < 2) return;
+    lastInput = Date.now();
+    if (locked) { e.preventDefault(); return; }
+    step(Math.sign(e.deltaY), e);
+  }, { passive: false });
+  addEventListener("keydown", (e) => {
+    if (!fullpage() || e.target.closest("input, textarea, select, button, [contenteditable]")) return;
+    const dir = ["ArrowDown", "PageDown", " "].includes(e.key) ? 1 : ["ArrowUp", "PageUp"].includes(e.key) ? -1 : 0;
+    if (!dir || e.shiftKey && e.key === " ") return;
+    lastInput = Date.now();
+    if (locked) { e.preventDefault(); return; }
+    step(dir, e);
+  });
+
+  // 문의
+  const form = document.getElementById("inquiry");
+  const status = document.getElementById("f-status");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.className = "status";
+    const email = form.email.value.trim(), school = form.school.value.trim();
+    if (!email || !form.email.checkValidity()) { status.className = "status bad"; status.textContent = "이메일 주소를 확인해 주세요."; form.email.focus(); return; }
+    if (!school) { status.className = "status bad"; status.textContent = "학교 이름을 적어 주세요."; form.school.focus(); return; }
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true; status.textContent = "보내는 중…";
+    try {
+      const r = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+      if (!r.ok) throw new Error(String(r.status));
+      form.reset();
+      status.className = "status ok"; status.textContent = "문의를 받았어요. 곧 연락드릴게요.";
+    } catch {
+      status.className = "status bad"; status.textContent = "보내지 못했어요. 잠시 뒤 다시 시도해 주세요.";
+    } finally {
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>
