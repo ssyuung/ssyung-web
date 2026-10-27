@@ -291,6 +291,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .set-img { aspect-ratio: 16 / 9; background: #FFFFFF; border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; place-items: center; overflow: hidden; }
 .set-img { position: relative; }
 .set-img img { position: absolute; inset: 16px; width: calc(100% - 32px); height: calc(100% - 32px); object-fit: contain; }
+.set-img.cover img { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
 .set figcaption { font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
 .set figcaption b { font-size: 21px; margin-bottom: 4px; }
 .s3-solve .reveal { transition-duration: .5s; }
@@ -561,22 +562,22 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
   <!-- 03 해결 -->
   <section class="page s1-solve s3-solve">
     <div class="wrap">
-      <h3 class="s1-solve-head reveal">복잡한 조건은 마디가, 최종 판단은 선생님이.</h3>
+      <h3 class="s1-solve-head reveal">현장의 다양한 조건을 그대로 담아 배정합니다.</h3>
       <div class="settings">
         <figure class="set reveal">
           <div class="set-img"><img src="images/s3-need.webp" width="320" height="130" loading="lazy" alt="학생 설정. 과학은 시작·중간·종료, 영어는 시작·종료, 음악은 시작 구간 지원"></div>
-          <figcaption><b>학생별 지원 필요도</b>과목과 활동에 따라 학생에게 필요한 지원 수준을 설정합니다.</figcaption>
+          <figcaption><b>학생별 지원 필요도 반영</b>과목과 활동에 따라 학생에게 필요한 지원 수준을 설정합니다.</figcaption>
         </figure>
         <figure class="set reveal">
-          <div class="set-img"><img src="images/s3-note.webp" width="450" height="100" loading="lazy" alt="학생 설정. 점심시간 지원, 지원 방법·유의사항 항목"></div>
-          <figcaption><b>지원 시 주의사항</b>학생별 지원 방법과 주의할 점을 함께 기록하고 확인합니다.</figcaption>
+          <div class="set-img"><img src="images/s3-note.webp" width="650" height="104" loading="lazy" alt="학생 설정의 지원 방법·유의사항. 눈을 맞추고 천천히 말하면 편안해해요, 이동 전에 다음 장소를 미리 알려 주면 스스로 준비해요, 활동이 끝나면 구체적으로 칭찬해 주세요"></div>
+          <figcaption><b>지원 시 주의사항 함께 전달</b>학생별 지원 방법과 주의할 점을 함께 기록하고 확인합니다.</figcaption>
         </figure>
         <figure class="set reveal">
           <div class="set-img"><img src="images/s3-school.webp" width="600" height="251" loading="lazy" alt="학교 층 배치. 층마다 반 목록"></div>
-          <figcaption><b>같은 층 이동 고려</b>같은 층으로 이동하는 학생들을 함께 지원할 수 있도록 동선을 고려합니다.</figcaption>
+          <figcaption><b>이동 시 교실 위치 고려</b>같은 층으로 이동하는 학생들을 함께 지원할 수 있도록 동선을 고려합니다.</figcaption>
         </figure>
         <figure class="set reveal">
-          <div class="set-img"><img src="images/s3-rotation.webp" width="245" height="422" loading="lazy" alt="9월 15일 박다은 학생의 하루. 3교시는 김지원, 11:20 이동은 박지원, 5교시는 이지원, 13:40 이동은 박지원이 맡는다"></div>
+          <div class="set-img cover"><img src="images/s3-rotation.webp" width="875" height="545" loading="lazy" alt="9월 15일 학생 일곱 명의 하루. 쉬는 시간 이동과 수업 지원을 김지원, 이지원, 박지원이 나눠 맡고 있다"></div>
           <figcaption><b>여러 지원인력의 고른 배정</b>특정 학생에게 한 지원인력만 계속 배정되지 않도록 골고루 배정합니다.</figcaption>
         </figure>
       </div>
@@ -588,7 +589,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
     <div class="wrap">
       <div class="copy reveal">
         <h2 class="title">학생에게 필요한 지원이 어느 순간에도 끊어지지 않도록.</h2>
-        <p class="lede">교사의 계획부터 지원인력의 하루까지.</p>
+        <p class="lede">교사의 계획부터 지원인력의 하루까지 이어주는 마디</p>
       </div>
       <div class="devices reveal">
         <figure class="shot"><img src="images/overview-desktop.webp" width="1440" height="900" loading="lazy" alt="교사용 마디 웹 화면. 왼쪽 메뉴와 학생별 하루 시간표"></figure>
