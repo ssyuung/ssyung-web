@@ -117,6 +117,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .logo-anim { width: 168px; aspect-ratio: 1; display: grid; place-items: center; border: 1px dashed var(--line); border-radius: 24px; color: var(--muted); font-size: 13px; }
 .logo-anim svg { width: 100%; height: 100%; }
 .hero h1 { font-size: clamp(26px, 2.8vw, 38px); }
+.hero h1 .name { color: var(--green-ink); }
 .hero .lede { margin: 0 auto; max-width: none; font-size: clamp(19px, 1.75vw, 24px); font-weight: 500; line-height: 1.5; letter-spacing: -0.03em; color: var(--ink); }
 .hero .btn { margin-top: 8px; padding: 14px 28px; font-size: 16px; }
 @media (prefers-reduced-motion: no-preference) {
@@ -176,7 +177,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .opt-m strong { display: block; font-size: 20px; color: #18211E; font-variant-numeric: tabular-nums; }
 .pick-result { margin-top: 20px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center; padding-top: 20px; border-top: 1px solid var(--line); }
 .pick-for { font-size: 15px; font-weight: 700; color: var(--brown); }
-.pick-lines ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; font-size: 16px; color: #302F2C; }
+.pick-stack { display: grid; margin-top: 8px; }
+.pick-stack ul { grid-area: 1 / 1; align-content: start; }
+.pick-stack ul[aria-hidden="true"] { visibility: hidden; }
+.pick-lines ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 16px; color: #302F2C; }
 .pick-lines li span { color: #286B50; font-weight: 700; }
 .pick-lines li span.gap { color: #C46F65; }
 .pick-act { display: grid; gap: 8px; justify-items: end; }
@@ -185,10 +189,12 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .pick-done:empty { display: none; }
 .pick.done .opt { cursor: default; }
 @media (max-width: 860px) { .opts { grid-template-columns: minmax(0, 1fr); } .pick-result { grid-template-columns: minmax(0, 1fr); } .pick-act { justify-items: stretch; } .pick-done { text-align: left; } .pick { padding: 16px; } }
-.pair-notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; margin-top: 32px; }
+.pair-notes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin: 32px auto 0; max-width: 1120px; padding-inline: 24px; text-align: center; }
+.pair-notes > div { padding-inline: 24px; }
+.pair-notes > div + div { border-left: 1px solid var(--line); }
 .pair-notes h4, .set figcaption b, .extra figcaption b { margin: 0; display: block; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: #286B50; }
 .pair-notes p { margin-top: 6px; font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
-@media (max-width: 720px) { .pair-notes { grid-template-columns: minmax(0, 1fr); gap: 20px; } .options-slot { aspect-ratio: 4 / 3; } }
+@media (max-width: 720px) { .pair-notes { grid-template-columns: minmax(0, 1fr); padding-inline: 17px; } .pair-notes > div { padding: 16px 0; } .pair-notes > div + div { border-left: 0; border-top: 1px solid var(--line); } .options-slot { aspect-ratio: 4 / 3; } }
 /* 02 문제: 큰 대사 한 줄, 넓은 사진, 아래 설명 (배경·글자는 01 문제와 같음) */
 .photo { margin: 0; aspect-ratio: 21 / 8; border-radius: 16px; border: 1px dashed var(--line); background: var(--sand); display: grid; place-items: center; text-align: center; padding: 24px; }
 .photo span { font-size: 15px; color: var(--muted); }
@@ -267,11 +273,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .fc-in { display: grid; gap: 4px; padding: 16px 20px; border-radius: 16px; background: #FFFFFF; border: 1px solid var(--line); box-shadow: 0 1px 2px rgba(73, 55, 47, 0.06), 0 10px 24px -18px rgba(73, 55, 47, 0.35); }
 .fc-in b { font-size: 19px; font-weight: 800; color: #49372F; letter-spacing: -0.02em; }
 .fc-in span { font-size: 16px; color: #302F2C; line-height: 1.5; }
-.js .s3-problem .fc.reveal { transform: translate(var(--fx), var(--fy)); transition-duration: .6s; transition-delay: calc(.25s + var(--i) * .3s); }
+.js .s3-problem .fc.reveal { transform: translate(var(--fx), var(--fy)); transition-duration: .6s; transition-delay: calc(.15s + var(--i) * .12s); }
 .js .s3-problem .fc.reveal.in { transform: none; }
 .js .s3-problem .s1-head.reveal { transition-duration: .5s; }
 @media (prefers-reduced-motion: no-preference) {
-  .fc.in .fc-in { animation: drift var(--d) ease-in-out calc(1s + var(--i) * .3s) infinite alternate; }
+  .fc.in .fc-in { animation: drift var(--d) ease-in-out calc(.8s + var(--i) * .12s) infinite alternate; }
 }
 @keyframes drift { to { transform: translate(var(--mx), var(--my)); } }
 @media (max-width: 960px) {
@@ -288,9 +294,10 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .set figcaption { font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
 .set figcaption b { font-size: 21px; margin-bottom: 4px; }
 .s3-solve .reveal { transition-duration: .5s; }
-.js .s3-solve .set.reveal:nth-child(2) { transition-delay: .1s; }
-.js .s3-solve .set.reveal:nth-child(3) { transition-delay: .2s; }
-.js .s3-solve .set.reveal:nth-child(4) { transition-delay: .3s; }
+.js .s3-solve .set.reveal:nth-child(1) { transition-delay: .3s; }
+.js .s3-solve .set.reveal:nth-child(2) { transition-delay: .6s; }
+.js .s3-solve .set.reveal:nth-child(3) { transition-delay: .9s; }
+.js .s3-solve .set.reveal:nth-child(4) { transition-delay: 1.2s; }
 @media (max-width: 720px) { .settings { grid-template-columns: minmax(0, 1fr); } }
 /* 서비스 전체: 교사 PC 화면과 지원인력 휴대폰 */
 .overview { background: var(--sand); padding-block: 112px 136px; text-align: center; }
@@ -379,7 +386,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
   .pick { padding: clamp(14px, 2.4vh, 24px); }
   .opt { padding: clamp(12px, 2vh, 18px); }
   .pick-result { margin-top: clamp(12px, 2vh, 20px); padding-top: clamp(12px, 2vh, 20px); }
-  .pair-notes { margin-top: clamp(16px, 3vh, 32px); }
+  .pair-notes { margin-top: clamp(16px, 3vh, 32px); padding-inline: clamp(14px, 2.4vh, 24px); }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-snap-type: none; } }
 </style>
@@ -390,7 +397,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
   <div class="wrap">
     <a class="brand" href="#">마디<small>MADI</small></a>
     <nav aria-label="페이지 안내">
-      <a href="#s1">기능 살펴보기</a>
+      <a href="#s1">주요 기능</a>
     </nav>
     <a class="btn" href="#contact">도입 문의</a>
   </div>
@@ -403,7 +410,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
       <!-- 공식 로고 SVG 자리: ㅁ ㅏ ㄷ ㅣ 자소가 움직여 심벌마크로 결합한 뒤 메시지가 나타난다 -->
       로고 자리
     </div>
-    <h1>마디마다 함께.</h1>
+    <h1><span class="name">마디</span>마다, 함께.</h1>
     <p class="lede">학생에게 필요한 지원이 필요한 순간에 닿도록<br>특수교사와 지원인력 사이의 일정과 정보를 연결합니다.</p>
     <a class="btn" href="#s1">마디 살펴보기</a>
   </section>
@@ -456,7 +463,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
         <div class="pick-result">
           <div class="pick-lines" aria-live="polite">
             <p class="pick-for">김가영 3교시 체육관 활동</p>
-            <ul id="pick-list"></ul>
+            <div class="pick-stack" id="pick-list"></div>
           </div>
           <div class="pick-act">
             <button type="button" class="btn" id="pick-ok">A안으로 확정</button>
@@ -663,7 +670,8 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
   let chosen = "A";
   const renderPick = () => {
     optBtns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.k === chosen)));
-    pickList.innerHTML = PICK[chosen].map(([what, who, gap]) => `<li>${what} → <span class="${gap ? "gap" : ""}">${who}</span></li>`).join("");
+    // 세 안의 목록을 같은 자리에 겹쳐 두고 고른 안만 보여 준다. 칸 높이는 가장 긴 안에 맞춰 그대로 유지된다
+    pickList.innerHTML = Object.entries(PICK).map(([k, rows]) => `<ul aria-hidden="${k !== chosen}">${rows.map(([what, who, gap]) => `<li>${what} → <span class="${gap ? "gap" : ""}">${who}</span></li>`).join("")}</ul>`).join("");
     pickOk.textContent = `${chosen}안으로 확정`;
   };
   optBtns.forEach((b) => b.addEventListener("click", () => { if (pick.classList.contains("done")) return; chosen = b.dataset.k; renderPick(); }));
