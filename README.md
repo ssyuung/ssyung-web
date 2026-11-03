@@ -54,9 +54,8 @@
 |---|---|---|
 | 로고 애니메이션 | `#logo-anim` | 공식 SVG를 넣는다. 자소 그룹 id `#j-m #j-a #j-d #j-i`, 결합 상태 클래스 `.joined`(주석 참고) |
 | 학생 사진 | 02 문제 `.photo` | 체육관 앞에서 기다리는 학생 뒷모습 가로 사진 |
-| 휴대폰 시간표 | 02 해결 `.handset-screen` | 앱 캡처 `<img>`로 시연 목록을 대체 |
-| 변경 알림 / 지원 완료 | 02 해결 `.extra .cap-slot` | 앱 캡처 |
-| 휴대폰 화면 | 서비스 전체 `.phone-screen` | 앱 캡처 `<img>` |
+
+지원인력 앱 캡처(02 해결 휴대폰·알림·완료, 서비스 전체 휴대폰)는 채워져 있다. 다만 앱은 아직 목데이터(9월 18일, A02 이지원)로 돌고 있어 랜딩의 9월 15일 시나리오와 날짜·과목(앱 13:50 강바다는 미술, 교사 시간표는 음악)이 다르다. 앱이 실제 서버 데이터로 돌면 다시 찍는다.
 
 ## 동작 (스크립트, `index.html` 하단)
 
@@ -86,6 +85,8 @@ cwebp -q 88 -crop 0 0 1200 502    /tmp/madi-cap/school-floors.png   -o images/s3
 cwebp -q 88 /tmp/madi-cap/overview-desktop.png -o images/overview-desktop.webp
 ```
 
+지원인력 앱 캡처는 Expo 웹 개발 서버(`http://localhost:8081`, 서비스 저장소 `apps/mobile`)를 390×844·2배율로 찍는다. 첫 화면(알림 팝업) → `app-notice.webp`(팝업 중심 4:3 자르기), 팝업을 닫은 화면 → `app-today.webp`, 맨 아래로 스크롤한 화면 → `app-today-pm.webp`, 13:50 강바다 카드를 눌러 펼친 화면 → `app-support.webp`(카드 위부터 4:3 자르기). 역시 서버를 직접 띄우지 않는다.
+
 이미지를 바꾸면 `index.html`의 `width`·`height`(2배율 픽셀의 절반)와 `alt`도 맞춘다.
 
 | 파일 | 원본 | 쓰는 곳 |
@@ -96,6 +97,10 @@ cwebp -q 88 /tmp/madi-cap/overview-desktop.png -o images/overview-desktop.webp
 | `s3-school.webp` | 학교 층 배치 표 | 03 교실 위치 |
 | `s3-rotation.webp` | 학생 현황판 9/15, 이름 줄 + 09:40–11:20 | 03 고른 배정 |
 | `overview-desktop.webp` | 교사용 현황판 전체 창 | 서비스 전체, og:image |
+| `app-today.webp` | 지원인력 앱 오늘 화면(위) | 02 해결 휴대폰(처음), 서비스 전체 휴대폰 |
+| `app-today-pm.webp` | 지원인력 앱 오늘 화면(아래, 13:50 강바다) | 02 해결 휴대폰([이지원에게 맡기기] 뒤) |
+| `app-notice.webp` | 앱 변경 알림 팝업 | 02 해결 변경 즉시 알림 |
+| `app-support.webp` | 앱 일정 카드 펼침(행동 관찰) | 02 해결 학생별 지원 완료 확인 |
 
 ## 확인
 

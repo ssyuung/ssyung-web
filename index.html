@@ -236,20 +236,11 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .handset { margin: 0; padding: 10px; border-radius: 36px; background: #302F2C; box-shadow: var(--shadow); aspect-ratio: 9 / 19.5; }
 .handset-screen { height: 100%; border-radius: 28px; background: #fff; overflow: hidden; display: flex; flex-direction: column; }
 .handset-screen > img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.m-head { padding: 22px 16px 12px; border-bottom: 1px solid #DCE3E0; }
-.m-head b { display: block; font-size: 16px; color: #18211E; }
-.m-head span { font-size: 12px; color: #5A6763; }
-.m-list { list-style: none; margin: 0; padding: 10px 12px; display: grid; gap: 8px; }
-.m-list li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; align-items: start; padding: 10px; border-radius: 10px; border: 1px solid #DCE3E0; font-size: 13px; color: #18211E; }
-.m-list time { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: #5A6763; }
-.m-list b { display: block; font-size: 14px; }
-.m-list li.new { border-color: #286B50; }
-.m-list li.flash { animation: flash 1.6s ease-out; }
-@keyframes flash { from { background: #DDF2E7; } to { background: #fff; } }
-@media (prefers-reduced-motion: reduce) { .m-list li.flash { animation: none; background: #DDF2E7; } }
 .extras { display: grid; gap: 20px; }
 .extra { margin: 0; display: grid; gap: 10px; }
 .extra .cap-slot { aspect-ratio: 4 / 3; padding: 10px; font-size: 12px; }
+.extra .cap-slot:has(img) { padding: 0; border-style: solid; overflow: hidden; }
+.extra .cap-slot img { object-fit: cover; }
 .extra figcaption { font-size: 15px; line-height: 1.5; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
 .extra figcaption b { font-size: 17px; margin-bottom: 2px; }
 .s2-solve .reveal { transition-duration: .5s; }
@@ -521,21 +512,18 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
           <svg viewBox="0 0 64 24"><path d="M2 12 H58 M48 3 L60 12 L48 21" fill="none" stroke="#286B50" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <figure class="handset reveal">
-          <div class="handset-screen" aria-label="이지원 선생님의 모바일 시간표 시연">
-            <!-- 지원인력 앱 캡처가 나오면 아래 시연 대신 <img>를 넣는다 -->
-            <div class="m-head"><b>이지원</b><span>9월 15일 (화) 오늘 할 일</span></div>
-            <ul class="m-list" id="m-list" aria-live="polite">
-              <li><time>13:00</time><span><b>박다은</b>과학 · 5-3</span></li>
-            </ul>
+          <div class="handset-screen">
+            <!-- 지원인력 앱 오늘 화면 캡처. [이지원에게 맡기기]를 누르면 오후 일정(13:50 강바다)이 보이는 캡처로 바뀐다 -->
+            <img id="m-shot" src="images/app-today.webp" width="390" height="844" alt="지원인력 앱 오늘 화면. 9월 18일 이지원 선생님의 오전 일정">
           </div>
         </figure>
         <div class="extras reveal">
           <figure class="extra">
-            <div class="cap-slot" role="img" aria-label="변경 알림 화면 캡처 자리">캡처 자리</div>
+            <div class="cap-slot"><img src="images/app-notice.webp" width="390" height="292" loading="lazy" alt="지원인력 앱 알림. 새 일정이 나왔어요, 오늘 10:30–11:30 배정이 바뀌었어요 (3칸), 확인했어요 버튼"></div>
             <figcaption><b>변경 즉시 알림</b>담당 일정이 변경되면 지원인력의 모바일 앱으로 알림이 전달됩니다.</figcaption>
           </figure>
           <figure class="extra">
-            <div class="cap-slot" role="img" aria-label="학생별 지원 완료 확인 화면 캡처 자리">캡처 자리</div>
+            <div class="cap-slot"><img src="images/app-support.webp" width="390" height="292" loading="lazy" alt="지원인력 앱 일정 카드. 13:50 강바다 5-5 미술, 행동 관찰과 지도 방침"></div>
             <figcaption><b>학생별 지원 완료 확인</b>학생별 지원이 완료되었는지 확인할 수 있습니다.</figcaption>
           </figure>
         </div>
@@ -594,7 +582,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
       <div class="devices reveal">
         <figure class="shot"><img src="images/overview-desktop.webp" width="1440" height="900" loading="lazy" alt="교사용 마디 웹 화면. 왼쪽 메뉴와 학생별 하루 시간표"></figure>
         <div class="phone" aria-hidden="true">
-          <div class="phone-screen"><!-- 지원인력 앱 캡처가 나오면 <img>를 넣는다 --></div>
+          <div class="phone-screen"><img src="images/app-today.webp" width="390" height="844" loading="lazy" alt=""></div>
         </div>
       </div>
     </div>
@@ -691,20 +679,19 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
   const job = document.getElementById("demo-job");
   const slotA = document.getElementById("slot-a"), slotB = document.getElementById("slot-b");
   const go = document.getElementById("demo-go"), reset = document.getElementById("demo-reset");
-  const hint = document.getElementById("demo-hint"), list = document.getElementById("m-list");
-  const hintBefore = hint.innerHTML;
+  const hint = document.getElementById("demo-hint"), shot = document.getElementById("m-shot");
+  const hintBefore = hint.innerHTML, shotBefore = { src: shot.src, alt: shot.alt };
+  const shotAfter = { src: "images/app-today-pm.webp", alt: "지원인력 앱 오늘 화면. 9월 18일 이지원 선생님의 오후 일정. 13:50 강바다 5-5" };
+  new Image().src = shotAfter.src;
   go.addEventListener("click", () => {
     slotB.appendChild(job);
-    const li = document.createElement("li");
-    li.className = "new flash"; li.id = "m-new";
-    li.innerHTML = "<time>13:50</time><span><b>강바다</b>음악 · 5-5</span>";
-    list.appendChild(li);
+    shot.src = shotAfter.src; shot.alt = shotAfter.alt;
     hint.innerHTML = "<b>6교시 강바다</b> 담당을 이지원 선생님으로 바꿨어요";
     go.hidden = true; reset.hidden = false; reset.focus();
   });
   reset.addEventListener("click", () => {
     slotA.appendChild(job);
-    document.getElementById("m-new")?.remove();
+    shot.src = shotBefore.src; shot.alt = shotBefore.alt;
     hint.innerHTML = hintBefore;
     reset.hidden = true; go.hidden = false; go.focus();
   });
