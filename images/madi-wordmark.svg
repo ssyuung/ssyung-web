@@ -1,12 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100" height="56" viewBox="0 0 100 56">
-  <title>마디 MADI 워드마크 — 낮고 넓은 형태</title>
-  <!-- ㅁ: bounds x=0..34, y=0..56; four subtly rounded corners -->
-  <path d="M4.1 1.5 H29.9 Q32.5 1.5 32.5 4.1 V51.9 Q32.5 54.5 29.9 54.5 H4.1 Q1.5 54.5 1.5 51.9 V4.1 Q1.5 1.5 4.1 1.5 Z" fill="none" stroke="#49372F" stroke-width="3"/>
-  <!-- ㅏ: upright on LEFT, bar extending RIGHT, same bar length as original -->
-  <rect x="38" y="0" width="3" height="56" fill="#286B50"/>
-  <rect x="39.5" y="26.5" width="17" height="3" fill="#286B50"/>
-  <!-- ㄷ: only two rounded corners on left -->
-  <path d="M93 1.5 H64.6 Q62 1.5 62 4.1 V51.9 Q62 54.5 64.6 54.5 H93" fill="none" stroke="#49372F" stroke-width="3" stroke-linecap="butt" stroke-linejoin="miter"/>
-  <!-- ㅣ: same green upright as ㅏ -->
-  <rect x="97" y="0" width="3" height="56" fill="#286B50"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="109.2" height="46" viewBox="0 0 109.2 46" role="img" aria-labelledby="title desc">
+  <title id="title">마디 MADI 워드마크</title>
+  <desc id="desc">마디 워드마크: 낮고 균형 잡힌 글자 비례, 강조된 획, 시각적으로 조정된 자간</desc>
+  <!-- Optical kerning: ㅁ-ㅏ 5.2, ㅏ-ㄷ 5.5, ㄷ-ㅣ 3.0 visual units. -->
+  <!-- ㅁ: generous inner counter, softly eased corners -->
+  <path d="M6 2.5 H30.5 Q34 2.5 34 6 V40 Q34 43.5 30.5 43.5 H6 Q2.5 43.5 2.5 40 V6 Q2.5 2.5 6 2.5 Z" fill="none" stroke="#49372F" stroke-width="5" stroke-linejoin="round"/>
+  <!-- ㅏ: stem and centered crossbar -->
+  <rect x="41.7" y="0" width="5" height="46" fill="#286B50"/>
+  <rect x="44.2" y="20.5" width="17.2" height="5" fill="#286B50"/>
+  <!-- ㄷ: left corners eased; right ends intentionally square -->
+  <path d="M101.2 2.5 H72.9 Q69.4 2.5 69.4 6 V40 Q69.4 43.5 72.9 43.5 H101.2" fill="none" stroke="#49372F" stroke-width="5" stroke-linecap="butt" stroke-linejoin="round"/>
+  <!-- ㅣ: tight terminal rhythm -->
+  <rect x="104.2" y="0" width="5" height="46" fill="#286B50"/>
 </svg>

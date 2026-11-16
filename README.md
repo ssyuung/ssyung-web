@@ -118,6 +118,7 @@ cwebp -q 88 /tmp/madi-cap/overview-desktop.png -o images/overview-desktop.webp
 | `app-support.webp` | 앱 일정 카드 펼침(행동 관찰) | 02 해결 학생별 지원 완료 확인 |
 | `madi-symbol.svg` | 공식 심벌(2026-11-16 PNG를 같은 모양으로 벡터화, 원본 PNG는 `~/orca/ssyung-docs/images/madi-symbol-2026-11-16.png`) | 히어로 `#logo-anim`(색을 테마 토큰으로 바꿔 인라인) |
 | `madi-wordmark.svg` | 공식 워드마크 원본 | 두 페이지 왼쪽 위 `.brand`(색을 테마 토큰으로 바꿔 인라인) |
+| `madi-qr.svg` | 공식 QR(https://madiedu.com, 투명 배경, 2026-11-16) | 페이지에서는 안 씀. 인쇄물용, 둘레에 여백을 두고 쓴다 |
 | `favicon.svg`, `favicon-32.png` | 심벌 + 아이보리 둥근 칸 | 브라우저 탭 |
 | `og.png` | 1200×630 아이보리 바탕 가운데 심벌(높이 280) | 링크 미리보기(og:image). 카카오톡은 캐시가 있어 바꾼 뒤 카카오 개발자 도구에서 캐시를 지운다 |
 | `apple-touch-icon.png` | 같은 그림, 각진 정사각형 180px(iOS가 모서리를 깎음) | 휴대폰 홈 화면 |
