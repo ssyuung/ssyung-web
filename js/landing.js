@@ -16,9 +16,9 @@
     }, { passive: true });
     const fast = () => performance.now() - lastT < 120 && speed > 1.5;
 
-    // el이 화면(상단 바 아래)에 닿으면 enter, 위아래로 한 화면 넘게 멀어지면 leave
+    // el이 화면 아래 1/4 선을 넘어 올라오면 enter(끝에 닿자마자 재생하면 눈에 띄기 전에 끝난다), 위아래로 한 화면 넘게 멀어지면 leave
     const watch = (el, enter, leave) => {
-      new IntersectionObserver(([x]) => x.isIntersecting && enter(), { rootMargin: "-64px 0px 0px 0px" }).observe(el);
+      new IntersectionObserver(([x]) => x.isIntersecting && enter(), { rootMargin: "-64px 0px -25% 0px" }).observe(el);
       new IntersectionObserver(([x]) => x.isIntersecting || leave(), { rootMargin: "100% 0px 100% 0px" }).observe(el);
     };
     // 한 프레임 동안 .instant를 붙여 전환 없이 상태를 바꾼다

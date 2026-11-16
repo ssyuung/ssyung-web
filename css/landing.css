@@ -91,7 +91,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .s1-table .shot { flex: 1; display: flex; }
 .s1-table .shot img { height: 100%; object-fit: cover; object-position: top left; }
 /* 차례로: 이교사 → 김교사 → 시간표, 0.1초 간격 */
-.s1-problem .reveal { transition-duration: .5s; }
+.s1-problem .reveal { transition-duration: .7s; }
 .js .s1-problem .msg.out.reveal { transition-delay: .1s; }
 .js .s1-problem .s1-table.reveal { transition-delay: .2s; }
 /* 01 해결: 여러 배정안 화면을 크게, 아래에 짧은 설명 둘 */
@@ -137,7 +137,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .s2-desc { margin-top: 32px; font-size: clamp(18px, 1.6vw, 22px); font-weight: 600; color: var(--brown); letter-spacing: -0.02em; }
 .js .s2-problem .photo.reveal { transition-delay: .1s; }
 .js .s2-problem .s2-desc.reveal { transition-delay: .2s; }
-.s2-problem .reveal { transition-duration: .5s; }
+.s2-problem .reveal { transition-duration: .7s; }
 /* 02 해결: PC 시간표(두 명) → 화살표 → 휴대폰 → 부가 기능. 정해 둔 한 칸만 바꿔 볼 수 있다 */
 .s2-solve-copy { display: grid; gap: 14px; justify-items: center; text-align: center; margin-bottom: 56px; }
 .s2-solve-copy .s1-solve-head { margin: 0; }
@@ -179,7 +179,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .extra .cap-slot img { object-fit: cover; }
 .extra figcaption { font-size: 15px; line-height: 1.5; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
 .extra figcaption b { font-size: 17px; margin-bottom: 2px; }
-.s2-solve .reveal { transition-duration: .5s; }
+.s2-solve .reveal { transition-duration: .7s; }
 .js .s2-solve .flow-arrow.reveal { transition-delay: .1s; }
 .js .s2-solve .handset.reveal { transition-delay: .2s; }
 .js .s2-solve .extras.reveal { transition-delay: .3s; }
@@ -202,7 +202,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .fc-in span { font-size: 16px; color: #302F2C; line-height: 1.5; }
 .js .s3-problem .fc.reveal { transform: translate(var(--fx), var(--fy)); transition-duration: .6s; transition-delay: calc(.05s + var(--i) * .06s); }
 .js .s3-problem .fc.reveal.in { transform: none; }
-.js .s3-problem .s1-head.reveal { transition-duration: .5s; }
+.js .s3-problem .s1-head.reveal { transition-duration: .7s; }
 @media (prefers-reduced-motion: no-preference) {
   .fc.in .fc-in { animation: drift var(--d) ease-in-out calc(.6s + var(--i) * .06s) infinite alternate; }
 }
@@ -220,7 +220,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .set-img.cover img { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
 .set figcaption { font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--ink) 80%, var(--ivory)); }
 .set figcaption b { font-size: 21px; margin-bottom: 4px; }
-.s3-solve .reveal { transition-duration: .5s; }
+.s3-solve .reveal { transition-duration: .7s; }
 .js .s3-solve .set.reveal:nth-child(1) { transition-delay: .1s; }
 .js .s3-solve .set.reveal:nth-child(2) { transition-delay: .2s; }
 .js .s3-solve .set.reveal:nth-child(3) { transition-delay: .3s; }

@@ -18,7 +18,9 @@
 - 카카오톡 미리보기에서 작게 보여도 제목이 읽혀야 한다. 가장자리 60px 안에는 글자를 두지 않는다.
 - 만드는 방법 예: HTML로 그린 뒤 Playwright로 1200×630 캡처.
 
-## 2. 파비콘·앱 아이콘
+## 2. 파비콘·앱 아이콘 (채움)
+
+공식 심벌로 `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`를 만들어 두었다. `icon-512.png`는 앱 설치 설정(manifest)이 생길 때 만든다.
 
 - 파일: `images/favicon.svg`, `images/favicon-32.png`, `images/apple-touch-icon.png`(180), `images/icon-512.png`
 - 공식 심벌마크가 있으면 그것으로. 없으면 Green 바탕 원형에 Ivory "마" 한 글자로 임시 제작하고 임시라고 보고한다.
