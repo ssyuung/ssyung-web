@@ -9,6 +9,9 @@
 <meta property="og:title" content="마디 · 마디마다, 함께.">
 <meta property="og:description" content="필요한 지원이, 필요한 순간에 닿도록.">
 <meta property="og:image" content="images/overview-desktop.webp">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script>
 document.documentElement.classList.add("js");
@@ -103,8 +106,8 @@ footer { scroll-snap-align: end; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ivory); }
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--ivory) 90%, transparent); backdrop-filter: blur(10px); }
 .top .wrap { display: flex; align-items: center; gap: 32px; height: 64px; }
-.brand { font-weight: 800; font-size: 21px; letter-spacing: -0.04em; color: var(--brown); text-decoration: none; }
-.brand small { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); margin-left: 6px; }
+.brand { display: block; line-height: 0; text-decoration: none; }
+.brand svg { display: block; height: 28px; width: auto; }
 .top nav { display: flex; gap: 28px; margin-left: auto; font-size: 15px; }
 .top nav a { color: var(--muted); text-decoration: none; }
 .top nav a:hover { color: var(--brown); }
@@ -113,9 +116,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
 /* Hero: 로고 결합 애니메이션 → 브랜드 메시지 → 버튼 */
 .hero { min-height: min(100svh - 64px, 860px); display: grid; align-content: center; justify-items: center; gap: 28px; padding-block: 64px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); text-align: center; }
-/* 공식 SVG가 오면 .logo-anim 안에 넣는다. 자소 그룹 id는 #j-m #j-a #j-d #j-i, 결합된 상태는 .logo-anim.joined */
-.logo-anim { width: 168px; aspect-ratio: 1; display: grid; place-items: center; border: 1px dashed var(--line); border-radius: 24px; color: var(--muted); font-size: 13px; }
-.logo-anim svg { width: 100%; height: 100%; }
+/* 공식 심벌(images/madi-symbol.svg)을 인라인. 자소 id는 #j-m #j-a #j-d #j-i */
+.logo-anim { width: 168px; aspect-ratio: 1; }
+.logo-anim svg { display: block; width: 100%; height: 100%; }
 .hero h1 { font-size: clamp(26px, 2.8vw, 38px); }
 .hero h1 .name { color: var(--green-ink); }
 .hero .lede { margin: 0 auto; max-width: none; font-size: clamp(19px, 1.75vw, 24px); font-weight: 500; line-height: 1.5; letter-spacing: -0.03em; color: var(--ink); }
@@ -336,6 +339,9 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 
 footer { padding-block: 32px 44px; font-size: 14px; color: var(--muted); }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+footer .links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+footer a { color: inherit; }
+footer .privacy { font-weight: 700; color: var(--ink); }
 
 /* 태블릿·모바일 */
 @media (max-width: 960px) {
@@ -387,7 +393,16 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#">마디<small>MADI</small></a>
+    <a class="brand" href="#" aria-label="마디 MADI">
+      <!-- images/madi-wordmark.svg. 색은 테마 토큰 -->
+      <svg viewBox="0 0 100 56" aria-hidden="true">
+        <path d="M4.1 1.5 H29.9 Q32.5 1.5 32.5 4.1 V51.9 Q32.5 54.5 29.9 54.5 H4.1 Q1.5 54.5 1.5 51.9 V4.1 Q1.5 1.5 4.1 1.5 Z" fill="none" stroke="var(--brown)" stroke-width="3"/>
+        <rect x="38" y="0" width="3" height="56" fill="var(--green-ink)"/>
+        <rect x="39.5" y="26.5" width="17" height="3" fill="var(--green-ink)"/>
+        <path d="M93 1.5 H64.6 Q62 1.5 62 4.1 V51.9 Q62 54.5 64.6 54.5 H93" fill="none" stroke="var(--brown)" stroke-width="3"/>
+        <rect x="97" y="0" width="3" height="56" fill="var(--green-ink)"/>
+      </svg>
+    </a>
     <nav aria-label="페이지 안내">
       <a href="#s1">주요 기능</a>
     </nav>
@@ -399,8 +414,13 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
   <!-- Hero -->
   <section class="page hero">
     <div class="logo-anim" id="logo-anim" aria-hidden="true">
-      <!-- 공식 로고 SVG 자리: ㅁ ㅏ ㄷ ㅣ 자소가 움직여 심벌마크로 결합한 뒤 메시지가 나타난다 -->
-      로고 자리
+      <!-- images/madi-symbol.svg. 색은 테마 토큰. 자소 id: #j-m ㅁ, #j-a ㅏ 가로획, #j-d ㄷ, #j-i ㅣ -->
+      <svg viewBox="0 0 82 82">
+        <path id="j-a" d="M 32.5 41 H 49.5" fill="none" stroke="var(--green-ink)" stroke-width="3"/>
+        <path id="j-m" d="M 4.1 1.5 H 29.9 Q 32.5 1.5 32.5 4.1 V 77.9 Q 32.5 80.5 29.9 80.5 H 4.1 Q 1.5 80.5 1.5 77.9 V 4.1 Q 1.5 1.5 4.1 1.5 Z" fill="none" stroke="var(--brown)" stroke-width="3"/>
+        <path id="j-d" d="M 80.5 1.5 H 52.1 Q 49.5 1.5 49.5 4.1 V 77.9 Q 49.5 80.5 52.1 80.5 H 80.5" fill="none" stroke="var(--brown)" stroke-width="3"/>
+        <rect id="j-i" x="79" y="0" width="3" height="82" fill="var(--green-ink)"/>
+      </svg>
     </div>
     <h1><span class="name">마디</span>마다, 함께.</h1>
     <p class="lede">학생에게 필요한 지원이 필요한 순간에 닿도록<br>특수교사와 지원인력 사이의 일정과 정보를 연결합니다.</p>
@@ -604,7 +624,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
         </div>
         <div class="field">
           <label for="f-school">학교 이름</label>
-          <input id="f-school" name="school" type="text" autocomplete="organization" required placeholder="○○초등학교">
+          <input id="f-school" name="school" type="text" autocomplete="organization" required placeholder="○○학교">
         </div>
         <div class="field">
           <label for="f-msg">추가 문의사항 <span class="optional">(선택)</span></label>
@@ -612,7 +632,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
         </div>
         <button class="btn" type="submit">문의 남기기</button>
         <p class="status" id="f-status" role="status" aria-live="polite"></p>
-        <p class="fine">남긴 내용은 도입 안내에만 써요.</p>
+        <p class="fine">남긴 내용은 도입 안내에만 쓰고 늦어도 1년 안에 지워요. <a href="privacy.html">개인정보 처리방침</a></p>
       </form>
     </div>
   </section>
@@ -621,6 +641,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: s
 <footer>
   <div class="wrap">
     <span>© 2026 마디 MADI</span>
+    <span class="links"><a class="privacy" href="privacy.html">개인정보 처리방침</a><a href="mailto:contact@ssyung.com">contact@ssyung.com</a></span>
     <span>화면 속 학교·학생·선생님 이름은 모두 가명입니다</span>
   </div>
 </footer>
