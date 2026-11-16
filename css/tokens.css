@@ -1,0 +1,33 @@
+/* 마디 공통 색·글꼴 토큰 (index.html, privacy.html). 브랜드 팔레트는 README 참고 */
+/* Calm Editorial: 아이보리 바탕, 브라운 글자, 그린은 해결·디테일·CTA에만. 섹션은 배경색과 여백으로 나눈다 */
+:root {
+  --ivory: #FAF9F6;      /* Background Primary */
+  --paper: #FFFFFF;      /* 캡처 틀 */
+  --sand: #F2EFE9;       /* Background Secondary */
+  --ink: #302F2C;        /* Text Primary */
+  --brown: #49372F;      /* MADI Brown */
+  --muted: #6F6A63;      /* Text Secondary 글자용. 팔레트 #817B73은 대비 4.5:1에 못 미쳐 같은 색조로 진하게 */
+  --line: #DDD9D1;       /* Border Default */
+  --green: #286B50;      /* MADI Green */
+  --green-ink: #286B50;
+  --green-light: #A8D5B8;
+  --on-green: #FAF9F6;
+  --error: #AC4D42;      /* Status Error 글자용. 팔레트 #C46F65를 같은 색조로 진하게 */
+  --problem: #F0EEE8;    /* Warm Gray, 01 문제 영역 */
+  --shadow: 0 1px 2px rgba(73, 55, 47, 0.06), 0 24px 48px -28px rgba(73, 55, 47, 0.28);
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --max: 1280px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ivory: #171513; --paper: #1E1B19; --sand: #221F1C; --ink: #F1ECE6; --brown: #E6D9CF; --muted: #ABA29B;
+    --line: #34302C; --green: #286B50; --green-ink: #8CC7A3; --green-light: #A8D5B8; --on-green: #FAF9F6; --error: #D98A81; --problem: #201D1B;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 24px 48px -28px rgba(0, 0, 0, 0.7); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ivory: #171513; --paper: #1E1B19; --sand: #221F1C; --ink: #F1ECE6; --brown: #E6D9CF; --muted: #ABA29B;
+  --line: #34302C; --green: #286B50; --green-ink: #8CC7A3; --green-light: #A8D5B8; --on-green: #FAF9F6; --error: #D98A81; --problem: #201D1B;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 24px 48px -28px rgba(0, 0, 0, 0.7); color-scheme: dark;
+}
