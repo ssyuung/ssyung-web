@@ -110,15 +110,15 @@ cwebp -q 88 /tmp/madi-cap/overview-desktop.png -o images/overview-desktop.webp
 | `s3-note.webp` | 학생 설정 지원 방법·유의사항(예시 문구) | 03 주의사항 |
 | `s3-school.webp` | 학교 층 배치 표 | 03 교실 위치 |
 | `s3-rotation.webp` | 학생 현황판 9/15, 이름 줄 + 09:40–11:20 | 03 고른 배정 |
-| `overview-desktop.webp` | 교사용 현황판 전체 창 | 서비스 전체, og:image |
+| `overview-desktop.webp` | 교사용 현황판 전체 창 | 서비스 전체 |
 | `app-today.webp` | 지원인력 앱 오늘 화면(위) | 02 해결 휴대폰(처음), 서비스 전체 휴대폰 |
 | `app-today-pm.webp` | 지원인력 앱 오늘 화면(아래, 13:50 강바다) | 02 해결 휴대폰([이지원에게 맡기기] 뒤) |
 | `app-notice.webp` | 앱 변경 알림 팝업 | 02 해결 변경 즉시 알림 |
 | `s2-waiting.webp` | 원본 `~/orca/ssyung-docs/images/waiting_student.png`(1672×941, 공개되지 않게 저장소 밖에 둠) 변환, `cwebp -q 85` | 02 문제 (`.photo`, `object-fit: cover`로 화면 비율에 맞춰 자름) |
 | `app-support.webp` | 앱 일정 카드 펼침(행동 관찰) | 02 해결 학생별 지원 완료 확인 |
-| `madi-symbol.svg` | 공식 심벌 원본 | 히어로 `#logo-anim`(색을 테마 토큰으로 바꿔 인라인) |
-| `madi-wordmark.svg` | 공식 워드마크 원본 | 상단 `.brand`(두 페이지, 색을 테마 토큰으로 바꿔 인라인) |
-| `favicon.svg`, `favicon-32.png` | 심벌 + 아이보리 둥근 칸(여백 9) | 브라우저 탭 |
+| `madi-symbol.svg` | 공식 심벌(2026-11-16 PNG를 같은 모양으로 벡터화, 원본 PNG는 `~/orca/ssyung-docs/images/madi-symbol-2026-11-16.png`) | 히어로 `#logo-anim`과 두 페이지 상단 `.brand`(색을 테마 토큰으로 바꿔 인라인) |
+| `favicon.svg`, `favicon-32.png` | 심벌 + 아이보리 둥근 칸 | 브라우저 탭 |
+| `og.png` | 1200×630 아이보리 바탕 가운데 심벌(높이 280) | 링크 미리보기(og:image). 카카오톡은 캐시가 있어 바꾼 뒤 카카오 개발자 도구에서 캐시를 지운다 |
 | `apple-touch-icon.png` | 같은 그림, 각진 정사각형 180px(iOS가 모서리를 깎음) | 휴대폰 홈 화면 |
 
 ## 확인

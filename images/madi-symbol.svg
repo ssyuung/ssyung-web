@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="82" height="82" viewBox="0 0 82 82">
-<path d="M 32.5 41 H 49.5" fill="none" stroke="#286B50" stroke-width="3" stroke-linecap="butt"/>
-<path d="M 4.1 1.5 H 29.9 Q 32.5 1.5 32.5 4.1 V 77.9 Q 32.5 80.5 29.9 80.5 H 4.1 Q 1.5 80.5 1.5 77.9 V 4.1 Q 1.5 1.5 4.1 1.5 Z" fill="none" stroke="#49372F" stroke-width="3"/>
-<path d="M 80.5 1.5 H 52.1 Q 49.5 1.5 49.5 4.1 V 77.9 Q 49.5 80.5 52.1 80.5 H 80.5" fill="none" stroke="#49372F" stroke-width="3"/>
-<rect x="79" y="0" width="3" height="82" fill="#286B50"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1023" height="723" viewBox="0 0 1023 723">
+<title>마디 MADI 심벌</title>
+<path id="j-m" fill="#49372F" fill-rule="evenodd" d="M79 0 H362 A79 79 0 0 1 441 79 V644 A79 79 0 0 1 362 723 H79 A79 79 0 0 1 0 644 V79 A79 79 0 0 1 79 0 Z M80 62 A12 12 0 0 0 68 74 V647 A12 12 0 0 0 80 659 H360 A12 12 0 0 0 372 647 V74 A12 12 0 0 0 360 62 Z"/>
+<rect id="j-a" x="441" y="335" width="139" height="60" fill="#286B50"/>
+<path id="j-d" fill="#49372F" d="M947 0 H659 A79 79 0 0 0 580 79 V644 A79 79 0 0 0 659 723 H947 V659 H661 A12 12 0 0 1 649 647 V74 A12 12 0 0 1 661 62 H947 Z"/>
+<rect id="j-i" x="947" y="0" width="76" height="723" fill="#286B50"/>
 </svg>
